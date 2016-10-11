@@ -27,7 +27,9 @@ def index():
     # most recent first, and you need to return that list here.
     # Note that posts is NOT a list of strings in your actual code; it is
     # what you get from a db(...).select(...).
-    posts = ['banana', 'pear', 'eggplant']
+    #posts = ['banana', 'pear', 'eggplant']
+    posts = db(db.post).select()
+    posts = posts.sort(lambda posts: posts.created_on)
     return dict(posts=posts)
 
 
@@ -36,7 +38,12 @@ def edit():
     """
     This is the page to create / edit / delete a post.
     """
-    return dict()
+    form = SQLFORM(db.post)
+    if form.process().accepted:
+        redirect(URL('default', 'index'))
+    else:
+        session.flash = T('Post content must not be empty.')
+    return dict(form=form)
 
 
 def user():
