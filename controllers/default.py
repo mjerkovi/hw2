@@ -44,6 +44,7 @@ def edit():
          -check that the specified post exists
          - if the post exists check that the post was created by the logged in user
     """
+
     if request.args(0) is None:
         form = SQLFORM(db.post)
 
@@ -54,6 +55,7 @@ def edit():
             session.flash = T('Not authorized to edit this post')
             redirect(URL('default', 'index'))
         form = SQLFORM(db.post, record=post_querry, deletable=False, readonly=False)
+        #post_querry.updated_on = datetime.datetime.utcnow()
 
     if form.process().accepted:
         redirect(URL('default', 'index'))
