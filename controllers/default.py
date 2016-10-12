@@ -37,13 +37,29 @@ def index():
 def edit():
     """
     This is the page to create / edit / delete a post.
+    if there are no arguments passsed to edit, user is provided with form
+         to create a new post
+    if there is an argument(args=[post_id]), then user can edit post with
+         id post_id
+         -check that the specified post exists
+         - if the post exists check that the post was created by the logged in user
     """
-    form = SQLFORM(db.post)
+    if request.args(0) is None:
+        form = SQLFORM(db.post)
+
+    else:
+        #post_querry =db(db.post.id==request.args(0) and db.post.user_email==auth.user.email).select().first()
+        post_querry = db(db.post.user_email==auth.user.email and db.post.id==request.args(0)).select().first()
+        if post_querry is None or post_querry.user_email != auth.user.email:
+            session.flash = T('Not authorized to edit this post')
+            redirect(URL('default', 'index'))
+        form = SQLFORM(db.post, record=post_querry, deletable=False, readonly=False)
+
     if form.process().accepted:
         redirect(URL('default', 'index'))
-    else:
-        session.flash = T('Post content must not be empty.')
+
     return dict(form=form)
+
 
 
 def user():
