@@ -18,10 +18,10 @@
 {{pass}}
 
     <div class="post_list">
-    {{for p in posts:}}
+    {{for p,n in zip(posts,names):}}
         <div class="post text-left">
             <h3>{{=p.post_content}}</h3>
-            User email: {{=p.user_email}}<br>
+            User name: {{=n}}<br>
             Created on: {{=p.created_on.strftime("%m-%d-%y %H:%M")}}<br>
             {{if p.created_on != p.updated_on:}}
             Updated on: {{=p.updated_on.strftime("%m-%d-%y %H:%M")}}<br>

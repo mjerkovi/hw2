@@ -30,12 +30,12 @@ def index():
     #posts = ['banana', 'pear', 'eggplant']
     posts = db(db.post).select()
     posts = posts.sort(lambda posts: posts.created_on)
-    #names = []
-    # for i in posts:
-    #     names = names.append(get_user_name_from_email(i.user_email))
+    names = list()
+    for i in posts:
+        names.append(get_user_name_from_email(i.user_email))
     #for i in posts:
     #    names = (i, get_user_name_from_email(i.user_email))
-    return dict(posts=posts)
+    return dict(posts=posts, names=names)
     #return dict(names=names)
 
 
