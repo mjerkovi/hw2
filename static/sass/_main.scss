@@ -17,3 +17,26 @@
   padding: 20px;
   @include border-radius(16px);
 }
+
+
+.user_name {
+  display: inline-block;
+  margin-right: 30px;
+  color: #327bff;
+}
+
+.created_on {
+  display: inline-block;
+  margin-right: 30px;
+  color: #327bff;
+}
+
+.edited_on {
+  display: inline-block;
+  margin-right: 30px;
+  color: #327bff;
+}
+
+.edit_button {
+  float: right;
+}

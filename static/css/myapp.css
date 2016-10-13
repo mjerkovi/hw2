@@ -21,3 +21,29 @@
   -webkit-border-radius: 16px;
   border-radius: 16px;
 }
+
+/* line 22, ../sass/_main.scss */
+.user_name {
+  display: inline-block;
+  margin-right: 30px;
+  color: #327bff;
+}
+
+/* line 28, ../sass/_main.scss */
+.created_on {
+  display: inline-block;
+  margin-right: 30px;
+  color: #327bff;
+}
+
+/* line 34, ../sass/_main.scss */
+.edited_on {
+  display: inline-block;
+  margin-right: 30px;
+  color: #327bff;
+}
+
+/* line 40, ../sass/_main.scss */
+.edit_button {
+  float: right;
+}
