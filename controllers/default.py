@@ -29,7 +29,13 @@ def index():
     # what you get from a db(...).select(...).
     #posts = ['banana', 'pear', 'eggplant']
     posts = db(db.post).select()
-    posts = posts.sort(lambda posts: posts.created_on)
+    posts = posts.sort(lambda posts: posts.created_on, reverse=True)
+
+    numRows = 0
+    for i in posts:
+        numRows+=1
+    if numRows > 20:
+        posts = posts[0:20]
     names = list()
     for i in posts:
         names.append(get_user_name_from_email(i.user_email))
@@ -60,8 +66,10 @@ def edit():
         if post_querry is None or post_querry.user_email != auth.user.email:
             session.flash = T('Not authorized to edit this post')
             redirect(URL('default', 'index'))
-        form = SQLFORM(db.post, record=post_querry, deletable=False, readonly=False)
+        form = SQLFORM(db.post, record=post_querry, deletable=True, readonly=False)
         #post_querry.updated_on = datetime.datetime.utcnow()
+
+    form.add_button('Cancel', URL('index'))
 
     if form.process().accepted:
         redirect(URL('default', 'index'))
