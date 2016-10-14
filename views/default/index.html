@@ -26,21 +26,21 @@
                 {{=n}}
             </div>
             <div class="created_on">
-            {{=p.created_on.strftime("%B %d 20%y   %H:%M")}}
+                {{=p.created_on.strftime("%B %d 20%y   %H:%M")}}
             </div>
             <!--If created on and updated on are different, display both-->
             {{if p.created_on != p.updated_on:}}
-            <div class="edited_on">
-            Edited on: {{=p.updated_on.strftime("%B %d 20%y   %H:%M")}}
-            </div>
+                <div class="edited_on">
+                    Edited on: {{=p.updated_on.strftime("%B %d 20%y   %H:%M")}}
+                </div>
             {{pass}}
             <!--Displays an edit link next to all of the logged in user's posts-->
             {{if auth.user_id and p.user_email==auth.user.email:}}
-            <div class="edit_button">
-                <a href="{{=URL('default', 'edit', args=[p.id])}}">
-                    <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
-                </a>
-            </div>
+                <div class="edit_button">
+                    <a href="{{=URL('default', 'edit', args=[p.id])}}">
+                        <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
+                    </a>
+                </div>
             {{pass}}
         </div>
 
