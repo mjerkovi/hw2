@@ -19,19 +19,22 @@
 
     <div class="post_list">
     {{for p,n in zip(posts,names):}}
+
         <div class="post text-left">
-            <h3>{{=p.post_content}}</h3>
+            <div class="content">{{=p.post_content}}</div>
             <div class="user_name">
                 {{=n}}
             </div>
             <div class="created_on">
-            {{=p.created_on.strftime("%m-%d-%y %H:%M")}}
+            {{=p.created_on.strftime("%B %d 20%y   %H:%M")}}
             </div>
+            <!--If created on and updated on are different, display both-->
             {{if p.created_on != p.updated_on:}}
             <div class="edited_on">
-            Edited on: {{=p.updated_on.strftime("%m-%d-%y %H:%M")}}
+            Edited on: {{=p.updated_on.strftime("%B %d 20%y   %H:%M")}}
             </div>
             {{pass}}
+            <!--Displays an edit link next to all of the logged in user's posts-->
             {{if auth.user_id and p.user_email==auth.user.email:}}
             <div class="edit_button">
                 <a href="{{=URL('default', 'edit', args=[p.id])}}">
@@ -39,9 +42,8 @@
                 </a>
             </div>
             {{pass}}
-            <!--=get_user_name_from_email(p.user_email)<br>   #for some reason this is not working-->
-            <!-- Here goes the code to display an individual post. The code below is just a placeholder. -->
         </div>
+
     {{pass}}
     </div>
 

@@ -22,27 +22,24 @@ def index():
     """
     This is your main controller.
     """
-    # I am creating a bogus list here, just to have some divs appear in the
-    # view.  You need to read at most 20 posts from the database, in order of
-    # most recent first, and you need to return that list here.
-    # Note that posts is NOT a list of strings in your actual code; it is
-    # what you get from a db(...).select(...).
-    #posts = ['banana', 'pear', 'eggplant']
     posts = db(db.post).select()
+    #sorts the posts by the time it was created with the most recent first
     posts = posts.sort(lambda posts: posts.created_on, reverse=True)
 
+    #counts the number of entries in the table. then slices the posts so only the first 20 are displayed
     numRows = 0
     for i in posts:
         numRows+=1
     if numRows > 20:
         posts = posts[0:20]
+
+    #populates a list with the names of the users
     names = list()
     for i in posts:
         names.append(get_user_name_from_email(i.user_email))
-    #for i in posts:
-    #    names = (i, get_user_name_from_email(i.user_email))
+
     return dict(posts=posts, names=names)
-    #return dict(names=names)
+
 
 
 @auth.requires_login()
@@ -61,13 +58,14 @@ def edit():
         form = SQLFORM(db.post)
 
     else:
-        #post_querry =db(db.post.id==request.args(0) and db.post.user_email==auth.user.email).select().first()
-        post_querry = db(db.post.user_email==auth.user.email and db.post.id==request.args(0)).select().first()
-        if post_querry is None or post_querry.user_email != auth.user.email:
+        #queries the database for the given post. If the post's user email doesn't match the logged
+        #in users email, the user is redirected to index. Other wise the user is given an update
+        #form to update their post
+        post_query = db(db.post.user_email==auth.user.email and db.post.id==request.args(0)).select().first()
+        if post_query is None or post_query.user_email != auth.user.email:
             session.flash = T('Not authorized to edit this post')
             redirect(URL('default', 'index'))
-        form = SQLFORM(db.post, record=post_querry, deletable=True, readonly=False)
-        #post_querry.updated_on = datetime.datetime.utcnow()
+        form = SQLFORM(db.post, record=post_query, deletable=True, readonly=False)
 
     form.add_button('Cancel', URL('index'))
 

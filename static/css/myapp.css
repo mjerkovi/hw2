@@ -22,28 +22,40 @@
   border-radius: 16px;
 }
 
-/* line 22, ../sass/_main.scss */
+/* line 21, ../sass/_main.scss */
+.post:hover {
+  background: #b8d4e8;
+}
+
+/* line 25, ../sass/_main.scss */
 .user_name {
   display: inline-block;
   margin-right: 30px;
   color: #327bff;
 }
 
-/* line 28, ../sass/_main.scss */
+/* line 31, ../sass/_main.scss */
 .created_on {
   display: inline-block;
   margin-right: 30px;
   color: #327bff;
 }
 
-/* line 34, ../sass/_main.scss */
+/* line 37, ../sass/_main.scss */
 .edited_on {
   display: inline-block;
   margin-right: 30px;
   color: #327bff;
 }
 
-/* line 40, ../sass/_main.scss */
+/* line 43, ../sass/_main.scss */
 .edit_button {
   float: right;
+}
+
+/* line 47, ../sass/_main.scss */
+.content {
+  font-size: 25px;
+  word-wrap: break-word;
+  padding: 0px 25px 10px 10px;
 }

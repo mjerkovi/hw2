@@ -18,6 +18,9 @@
   @include border-radius(16px);
 }
 
+.post:hover {
+  background: #b8d4e8;
+}
 
 .user_name {
   display: inline-block;
@@ -40,3 +43,10 @@
 .edit_button {
   float: right;
 }
+
+.content {
+  font-size: 25px;
+  word-wrap: break-word;
+  padding: 0px 25px 10px 10px;
+}
+
